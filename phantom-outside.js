@@ -12,11 +12,17 @@
     var phantomInside = require('./phantom-inside');
     
     var analyzePage = function(options) {
+        // options
         assert(typeof(options) === "object", "analyzePage: options (the first parameter) is not specified");
+        // options.onCompleted is compulsory (otherwise this whole module is pointless)
         assert(typeof(options.onCompleted) === "function", "analyzePage: You should provide a callback: options.onCompleted should be a function");
+        // options.onError is compulsory (to encourage correct error handling)
         assert(typeof(options.onError) === "function", "analyzePage: You should provide a callback: options.onError should be a function");
+        // options.hostname is compulsory
         assert(typeof(options.hostname) === "string" && options.hostname, "analyzePage: options.hostname is not specified");
+        // options.cssHref is compulsory
         assert(typeof(options.cssHref) === "string" && options.cssHref, "analyzePage: options.cssHref is not specified");
+        // options.keepIntact should either be undefined, or a string, or an array
         assert(typeof(options.keepIntact) === "undefined" || (typeof(options.keepIntact) === "string" && options.keepIntact) || options.keepIntact instanceof Array, "analyzePage: options.keepIntact is invalid");
         
         console.log("phantom.create ...");
