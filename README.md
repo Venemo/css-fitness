@@ -25,9 +25,8 @@ CSS selectors will be tossed out of it.
 css-fitness does the following:
 
 1. Load your site with `phantomjs` and crawl through it
-2. Check each CSS rule individually, removing those that are unused
-3. Merge the outputs of the previous step
-4. Minify the result using `clean-css`
+2. Check each CSS rule against each page individually, removing those that are unused
+3. Minify the result using `clean-css`
 
 Parameters:
 
