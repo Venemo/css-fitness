@@ -85,20 +85,22 @@ phantom.create(function(err, ph) {
                         var selector = allSelectors[i];
                         var queriedSelector = selector;
                         var colonIndex = selector.indexOf(':');
+                        var queryresult;
+                        
                         if (colonIndex >= 0) {
                             queriedSelector = selector.substr(0, colonIndex);
                         }
                         
                         try {
-                            // Find all nodes that match the selector
-                            nodes = document.querySelectorAll(queriedSelector);
+                            // Find nodes that match the selector
+                            queryresult = document.querySelector(queriedSelector);
                         }
                         catch (err) {
-                            // querySelectorAll fails for some special rules, let's just skip and keep them intact
+                            // querySelector fails for some special rules, let's just skip and keep them intact
                             usedSelectors.push(selector);
                         }
                         
-                        if (nodes.length > 0) {
+                        if (queryresult) {
                             usedSelectors.push(selector);
                         }
                     }
@@ -184,7 +186,7 @@ phantom.create(function(err, ph) {
                     }
                     catch (err) {
                         // Tell that there was an error and then exit
-                        window.callPhantom({ error: true });
+                        window.callPhantom({ error: true, errObj: err });
                         window.callPhantom("exitnow");
                     }
                 });
