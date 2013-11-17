@@ -17,7 +17,8 @@
         assert(typeof(options.onError) === "function", "analyzePage: You should provide a callback: options.onError should be a function");
         assert(typeof(options.url) === "string" && options.url, "analyzePage: options.url is not specified");
         assert(typeof(options.cssHref) === "string" && options.cssHref, "analyzePage: options.cssHref is not specified");
-    
+        assert(typeof(options.keepIntact) === "undefined" || (typeof(options.keepIntact) === "string" && options.keepIntact) || options.keepIntact instanceof Array, "analyzePage: options.keepIntact is invalid");
+        
         console.log("phantom.create ...");
         phantom.create(function(err, ph) {
             if (err) {
@@ -73,7 +74,7 @@
                             ph.exit();
                             options.onError(err);
                         }
-                    }, 0, options.cssHref);
+                    }, 0, { cssHref: options.cssHref, keepIntact: options.keepIntact });
                 });
             });
         });

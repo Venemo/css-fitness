@@ -12,6 +12,7 @@ var CleanCSS = require('clean-css');
 phantomOutside.analyzePage({
     url: "http://localhost:7002",
     cssHref: "/css/min.style.css",
+    //keepIntact: ["hr"],
     onCompleted: function(result) {
         console.log("page analyzed successfully.");
         

@@ -7,8 +7,12 @@
 
 (function(exports) {
 
-    var runOnPageOpened = function(cssHref) {
+    var runOnPageOpened = function(options) {
         console.log("running inside page.evaluateAsync");
+        
+        // Get parameters
+        var cssHref = options.cssHref || null;
+        var keepIntact = options.keepIntact || null;
         
         // Runs a function when the document is ready
         function onrdy(cb) {
@@ -41,16 +45,25 @@
                 var queryresult;
                 
                 if (colonIndex >= 0) {
+                    // In case of pseudo-elements, just query the real element part
                     queriedSelector = selector.substr(0, colonIndex);
                 }
                 
-                try {
-                    // Find nodes that match the selector
-                    queryresult = document.querySelector(queriedSelector);
+                // If the selector is just a pseudo-element (nothing more), keep it intact
+                // If this selector is specified to be kept intact, don't bother it
+                if (queriedSelector === "" || queriedSelector === keepIntact || (keepIntact instanceof Array && keepIntact.indexOf(queriedSelector) >= 0)) {
+                    queryresult = true;
                 }
-                catch (err) {
-                    // querySelector fails for some special rules, let's just skip and keep them intact
-                    usedSelectors.push(selector);
+                
+                if (!queryresult) {
+                    try {
+                        // Find nodes that match the selector
+                        queryresult = document.querySelector(queriedSelector);
+                    }
+                    catch (err) {
+                        // querySelector fails for some special rules, let's just skip and keep them intact
+                        queryresult = true;
+                    }
                 }
                 
                 if (queryresult) {
@@ -60,6 +73,7 @@
             
             if (usedSelectors.length === 0) {
                 // If none of the selectors were used, return empty string
+                //window.callPhantom("UNUSED RULE: " + rule.selectorText);
                 return "";
             }
             

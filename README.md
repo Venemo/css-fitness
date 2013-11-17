@@ -18,6 +18,7 @@ Parameters:
 * Hostname of your site
 * Paths of pages to crawl (if not specified, it will crawl the whole site)
 * Which CSS you want to make healthier
+* Which CSS selectors you want it to leave alone
 
 Limitations
 -----------
