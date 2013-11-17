@@ -4,7 +4,8 @@
   "author": "Timur Kristóf",
   "version": "0.1.0",
   "dependencies": {
-    "node-phantom": "*"
+    "node-phantom": "*",
+    "clean-css": "*"
   },
   "engine": "node >= 0.10.0"
 }

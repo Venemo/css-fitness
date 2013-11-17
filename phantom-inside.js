@@ -147,6 +147,18 @@
                     result.compressed += parseCssRule(rule);
                 }
                 
+                // Thanks to this answer:
+                // http://stackoverflow.com/questions/1144783/replacing-all-occurrences-of-a-string-in-javascript
+                function escapeRegExp(str) {
+                    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+                }
+                function replaceAll(find, replace, str) {
+                    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+                }
+                
+                // Remove all references to current host, the URLs will be valid without it
+                result.compressed = replaceAll(window.location.protocol + "//" + window.location.host, "", result.compressed);
+                
                 // Tell the result to node and then exit
                 window.callPhantom(result);
             }
