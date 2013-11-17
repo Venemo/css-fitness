@@ -10,9 +10,9 @@ var phantomOutside = require('./phantom-outside');
 var CleanCSS = require('clean-css');
 
 phantomOutside.analyzePage({
-    url: "http://localhost:7002",
+    hostname: "localhost:7002",
     cssHref: "/css/min.style.css",
-    //keepIntact: ["hr"],
+    //keepIntact: ["hr", "section"],
     onCompleted: function(result) {
         console.log("page analyzed successfully.");
         
