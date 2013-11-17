@@ -135,12 +135,10 @@
                 
                 // Tell the result to node and then exit
                 window.callPhantom(result);
-                window.callPhantom("exitnow");
             }
             catch (err) {
                 // Tell that there was an error and then exit
                 window.callPhantom({ error: true, errObj: err });
-                window.callPhantom("exitnow");
             }
         });
     };
@@ -148,3 +146,4 @@
     exports.runOnPageOpened = runOnPageOpened;
 
 })(module.exports);
+

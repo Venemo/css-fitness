@@ -7,10 +7,16 @@
 
 (function(exports) {
 
+    var assert = require('assert');
     var phantom = require('node-phantom');
     var phantomInside = require('./phantom-inside');
     
-    var analyzePage = function() {
+    var analyzePage = function(options) {
+        assert(typeof(options) === "object", "analyzePage: options (the first parameter) is not specified");
+        assert(typeof(options.onCompleted) === "function", "analyzePage: You should provide a callback: options.onCompleted should be a function");
+        assert(typeof(options.onError) === "function", "analyzePage: You should provide a callback: options.onError should be a function");
+        assert(typeof(options.url) === "string" && options.url, "analyzePage: options.url is not specified");
+    
         console.log("phantom.create ...");
         phantom.create(function(err, ph) {
             if (err) {
@@ -30,7 +36,7 @@
                 }
             
                 console.log("page.open ...");
-                return page.open("http://localhost:7002/", function(err, status) {
+                return page.open(options.url, function(err, status) {
                     if (err) {
                         console.log("page.open failed", err);
                         ph.exit();
@@ -48,9 +54,13 @@
                             ph.exit();
                             return;
                         }
-                        if (result.compressed) {
-                            console.log("result compressed successfully.");
-                            console.log("original length:", result.originalLength, "compressed length:", result.compressed.length);
+                        else if (result.compressed) {
+                            ph.exit();
+                            options.onCompleted(result);
+                        }
+                        else if (result.error) {
+                            ph.exit();
+                            options.onError(result.errObj);
                         }
                         else {
                             console.log("CB: ", result);
@@ -60,7 +70,7 @@
                         if (err) {
                             console.log("page.evaluateAsync failed", err);
                             ph.exit();
-                            return;
+                            options.onError(err);
                         }
                     });
                 });
@@ -72,3 +82,4 @@
     exports.analyzePage = analyzePage; 
     
 })(module.exports);
+
