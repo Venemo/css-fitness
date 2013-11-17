@@ -7,7 +7,7 @@
 
 (function(exports) {
 
-    var runOnPageOpened = function() {
+    var runOnPageOpened = function(cssHref) {
         console.log("running inside page.evaluateAsync");
         
         // Runs a function when the document is ready
@@ -121,10 +121,24 @@
                     compressed: "",
                     originalLength: 0
                 };
-                // Inspected style sheet of the document
-                var s = document.styleSheets[0];
-                // TODO: what if the document has no style sheets?
-                // TODO: make the style sheet to parse a parameter
+                
+                // Find the style sheet
+                var s = null;
+                for (var i = document.styleSheets.length; i--; ) {
+                    var styleSheet = document.styleSheets[i];
+
+                    if (styleSheet.href === window.location.protocol + "//" + window.location.host + cssHref) {
+                        s = styleSheet;
+                        break;
+                    }
+                }
+                
+                if (!s) {
+                    // If the style sheet is not found, return the empty result
+                    window.callPhantom("stylesheet '" + cssHref + "' not found in '" + window.location.href + "'");
+                    window.callPhantom(result);
+                    return;
+                }
                 
                 // Go through each CSS rule and parse
                 for (var i = s.cssRules.length; i--; ) {

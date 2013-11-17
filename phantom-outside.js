@@ -16,6 +16,7 @@
         assert(typeof(options.onCompleted) === "function", "analyzePage: You should provide a callback: options.onCompleted should be a function");
         assert(typeof(options.onError) === "function", "analyzePage: You should provide a callback: options.onError should be a function");
         assert(typeof(options.url) === "string" && options.url, "analyzePage: options.url is not specified");
+        assert(typeof(options.cssHref) === "string" && options.cssHref, "analyzePage: options.cssHref is not specified");
     
         console.log("phantom.create ...");
         phantom.create(function(err, ph) {
@@ -54,11 +55,11 @@
                             ph.exit();
                             return;
                         }
-                        else if (result.compressed) {
+                        else if (result.hasOwnProperty("compressed")) {
                             ph.exit();
                             options.onCompleted(result);
                         }
-                        else if (result.error) {
+                        else if (result.hasOwnProperty("error")) {
                             ph.exit();
                             options.onError(result.errObj);
                         }
@@ -72,7 +73,7 @@
                             ph.exit();
                             options.onError(err);
                         }
-                    });
+                    }, 0, options.cssHref);
                 });
             });
         });
