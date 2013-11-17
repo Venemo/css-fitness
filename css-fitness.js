@@ -5,7 +5,6 @@
 // Licensed to you under the terms of the MIT license.
 // https://github.com/Venemo/css-fitness/blob/master/LICENSE
 
-
 var phantomOutside = require('./phantom-outside');
 phantomOutside.analyzePage();
 
