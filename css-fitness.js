@@ -137,8 +137,11 @@ phantom.create(function(err, ph) {
                     if (!conditionText) {
                         conditionText = rule.cssText.substr(0, rule.indexOf('{'));
                     }
+                    else {
+                        conditionText = "@media (" + conditionText + ") "
+                    }
                     
-                    return "@media (" + conditionText + ") { " + compressedBody + " } ";
+                    return conditionText + " { " + compressedBody + " } ";
                 };
                 
                 // Parses and compresses any CSS rule by calling the appropriate function
