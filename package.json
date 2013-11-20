@@ -12,9 +12,15 @@
   "bugs": {
     "url": "https://github.com/Venemo/css-fitness/issues"
   },
+  "scripts": {
+    "check": "jshint ."
+  },
   "dependencies": {
     "clean-css": "~2.0.2",
     "node-phantom": "~0.2.5"
+  },
+  "devDependencies": {
+    "jshint": "~2.3.0"
   },
   "engine": "node >= 0.10.0"
 }
