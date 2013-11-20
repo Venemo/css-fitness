@@ -20,7 +20,8 @@
     "README.md"
   ],
   "scripts": {
-    "check": "jshint ."
+    "check": "jshint .",
+    "test": "npm run check"
   },
   "dependencies": {
     "clean-css": "~2.0.2",
