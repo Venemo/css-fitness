@@ -1,4 +1,7 @@
+[![NPM version](https://badge.fury.io/js/css-fitness.png)](https://badge.fury.io/js/css-fitness)
 [![Build Status](https://secure.travis-ci.org/Venemo/css-fitness.png)](https://travis-ci.org/Venemo/css-fitness)
+[![Dependency Status](https://david-dm.org/Venemo/css-fitness.png)](https://david-dm.org/Venemo/css-fitness)
+[![devDependency Status](https://david-dm.org/Venemo/css-fitness/dev-status.png)](https://david-dm.org/Venemo/css-fitness#info=devDependencies)
 
 css-fitness
 ===========
