@@ -1,13 +1,12 @@
-
 // This file is part of css-fitness
 // (C) 2013 Timur Kristóf
 // -----
 // Licensed to you under the terms of the MIT license.
 // https://github.com/Venemo/css-fitness/blob/master/LICENSE
 
-var fs = require('fs');
-var phantomOutside = require('./phantom-outside');
-var CleanCSS = require('clean-css');
+var fs = require("fs");
+var phantomOutside = require("./phantom-outside");
+var CleanCSS = require("clean-css");
 
 phantomOutside.analyzePage({
     hostname: "localhost:7002",
@@ -20,7 +19,7 @@ phantomOutside.analyzePage({
         result.compressed = cleaner.minify(result.compressed);
 
         console.log("CSS minified successfully.");
-        console.log("saved space: " +  (100 - 100 * result.compressed.length / result.originalLength).toFixed(2) + "%");
+        console.log("saved space: " + (100 - 100 * result.compressed.length / result.originalLength).toFixed(2) + "%");
 
         fs.writeFile(__dirname + "/fitness-output.css", result.compressed, function(err) {
             if (err) {

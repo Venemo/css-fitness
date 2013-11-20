@@ -1,4 +1,3 @@
-
 // This file is part of css-fitness
 // (C) 2013 Timur Kristóf
 // -----
@@ -33,15 +32,15 @@
             // Body text of the rule
             var ruleBody = rule.cssText.substr(rule.selectorText.length);
             // Array of selectors in the selector text
-            var allSelectors = rule.selectorText.split(',');
+            var allSelectors = rule.selectorText.split(",");
             // Array of selectors actually used from the selector text
             var usedSelectors = [];
 
             // Let's iterate through each of the selectors and see which one is actually used
-            for (var i = allSelectors.length; i--; ) {
+            for (var i = allSelectors.length; i--;) {
                 var selector = allSelectors[i];
                 var queriedSelector = selector;
-                var colonIndex = selector.indexOf(':');
+                var colonIndex = selector.indexOf(":");
                 var queryresult;
 
                 if (colonIndex >= 0) {
@@ -78,7 +77,7 @@
             }
 
             // Create compressed selector from the actual list of selectors
-            var compressedSelector = usedSelectors.join(',');
+            var compressedSelector = usedSelectors.join(",");
             // Return the complete, compressed CSS rule
             return compressedSelector + " " + ruleBody + " ";
         };
@@ -93,7 +92,7 @@
             // The compressed body of the media rule
             var compressedBody = "";
 
-            for (var i = rule.cssRules.length; i--; ) {
+            for (var i = rule.cssRules.length; i--;) {
                 compressedBody += parseCssRule(rule.cssRules[i]);
             }
 
@@ -104,10 +103,10 @@
 
             var conditionText = rule.conditionText || rule.media.mediaText;
             if (!conditionText) {
-                conditionText = rule.cssText.substr(0, rule.indexOf('{'));
+                conditionText = rule.cssText.substr(0, rule.indexOf("{"));
             }
             else {
-                conditionText = "@media (" + conditionText + ") "
+                conditionText = "@media (" + conditionText + ") ";
             }
 
             return conditionText + " { " + compressedBody + " } ";
@@ -138,7 +137,7 @@
 
                 // Find the style sheet
                 var s = null;
-                for (var i = document.styleSheets.length; i--; ) {
+                for (var i = document.styleSheets.length; i--;) {
                     var styleSheet = document.styleSheets[i];
 
                     if (styleSheet.href === window.location.protocol + "//" + window.location.host + cssHref) {
@@ -155,8 +154,8 @@
                 }
 
                 // Go through each CSS rule and parse
-                for (var i = s.cssRules.length; i--; ) {
-                    var rule = s.cssRules[i];
+                for (var j = s.cssRules.length; j--;) {
+                    var rule = s.cssRules[j];
                     result.originalLength += rule.cssText.length;
                     result.compressed += parseCssRule(rule);
                 }
@@ -167,7 +166,7 @@
                     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
                 }
                 function replaceAll(find, replace, str) {
-                    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+                    return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
                 }
 
                 // Remove all references to current host, the URLs will be valid without it
@@ -185,4 +184,4 @@
 
     exports.runOnPageOpened = runOnPageOpened;
 
-})(module.exports);
+}(module.exports));
