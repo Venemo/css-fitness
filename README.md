@@ -1,3 +1,8 @@
+[![NPM version](https://badge.fury.io/js/css-fitness.png)](https://badge.fury.io/js/css-fitness)
+[![Build Status](https://secure.travis-ci.org/Venemo/css-fitness.png)](https://travis-ci.org/Venemo/css-fitness)
+[![Dependency Status](https://david-dm.org/Venemo/css-fitness.png)](https://david-dm.org/Venemo/css-fitness)
+[![devDependency Status](https://david-dm.org/Venemo/css-fitness/dev-status.png)](https://david-dm.org/Venemo/css-fitness#info=devDependencies)
+
 css-fitness
 ===========
 
@@ -16,7 +21,7 @@ It removes those rules from your CSS file that your web site doesn't actually us
 
 ### Why is this better than just minifying?
 
-Because it takes into account where exactly the CSS is used, not just compresses the CSS as-is.  
+Because it takes into account where exactly the CSS is used, not just compresses the CSS as-is.
 Meaning: the output of `css-fitness` will **not** be equivalent to the input because unused
 CSS selectors will be tossed out of it.
 
@@ -42,5 +47,3 @@ Limitations
 **However**, it can't take into account those elements that are created after page load (eg. via user interaction).
 You will need to specify those manually by using ṫhe `keepIntact` parameter.
 (This might be fixed in the future.)
-
-
