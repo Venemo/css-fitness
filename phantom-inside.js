@@ -90,7 +90,7 @@
             }
 
             // The compressed body of the media rule
-            var compressedBody = "";            
+            var compressedBody = "";
             for (var i = 0; i < rule.cssRules.length; i++) {
                 compressedBody += parseCssRule(rule.cssRules[i]);
             }
@@ -99,8 +99,8 @@
                 // If none of the rules in the media rule are used, this media rule is not needed at all
                 return "";
             }
-            
-            var conditionText = rule.cssText.substr(0, rule.cssText.indexOf('{'));
+
+            var conditionText = rule.cssText.substr(0, rule.cssText.indexOf("{"));
             return conditionText + " {\n" + compressedBody + " }\n\n";
         };
 
