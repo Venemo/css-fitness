@@ -12,6 +12,13 @@
   "bugs": {
     "url": "https://github.com/Venemo/css-fitness/issues"
   },
+  "files": [
+    "css-fitness.js",
+    "LICENSE",
+    "phantom-inside.js",
+    "phantom-outside.js",
+    "README.md"
+  ],
   "scripts": {
     "check": "jshint ."
   },
