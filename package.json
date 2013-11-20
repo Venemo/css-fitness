@@ -1,8 +1,17 @@
 {
   "name": "css-fitness",
-  "description": "Helps you keep your CSS fit and healthy by removing unused parts.",
   "author": "Timur Kristóf",
+  "description": "Helps you keep your CSS fit and healthy by removing unused parts.",
   "version": "0.1.0",
+  "homepage": "https://github.com/Venemo/css-fitness",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Venemo/css-fitness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Venemo/css-fitness/issues"
+  },
   "dependencies": {
     "node-phantom": "*",
     "clean-css": "*"
