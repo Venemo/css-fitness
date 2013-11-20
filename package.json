@@ -13,8 +13,8 @@
     "url": "https://github.com/Venemo/css-fitness/issues"
   },
   "dependencies": {
-    "node-phantom": "*",
-    "clean-css": "*"
+    "clean-css": "~2.0.2",
+    "node-phantom": "~0.2.5"
   },
   "engine": "node >= 0.10.0"
 }
