@@ -10,7 +10,7 @@
     var assert = require('assert');
     var phantom = require('node-phantom');
     var phantomInside = require('./phantom-inside');
-    
+
     var analyzePage = function(options) {
         // options
         assert(typeof(options) === "object", "analyzePage: options (the first parameter) is not specified");
@@ -24,7 +24,7 @@
         assert(typeof(options.cssHref) === "string" && options.cssHref, "analyzePage: options.cssHref is not specified");
         // options.keepIntact should either be undefined, or a string, or an array
         assert(typeof(options.keepIntact) === "undefined" || (typeof(options.keepIntact) === "string" && options.keepIntact) || options.keepIntact instanceof Array, "analyzePage: options.keepIntact is invalid");
-        
+
         console.log("phantom.create ...");
         phantom.create(function(err, ph) {
             if (err) {
@@ -42,7 +42,7 @@
                     ph.exit();
                     return null;
                 }
-            
+
                 console.log("page.open ...");
                 return page.open("http://" + options.hostname, function(err, status) {
                     if (err) {
@@ -55,7 +55,7 @@
                         ph.exit();
                         return null;
                     }
-                    
+
                     console.log("page.evaluate ...");
                     page.onCallback = function(result) {
                         if (result === "exitnow") {
@@ -84,10 +84,9 @@
                 });
             });
         });
-        
-    };
-    
-    exports.analyzePage = analyzePage; 
-    
-})(module.exports);
 
+    };
+
+    exports.analyzePage = analyzePage;
+
+})(module.exports);
