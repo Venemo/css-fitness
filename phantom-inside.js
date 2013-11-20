@@ -38,7 +38,7 @@
             var usedSelectors = [];
             
             // Let's iterate through each of the selectors and see which one is actually used
-            for (var i = allSelectors.length; i--; ) {
+            for (var i = 0; i < allSelectors.length; i++) {
                 var selector = allSelectors[i];
                 var queriedSelector = selector;
                 var colonIndex = selector.indexOf(':');
@@ -80,7 +80,7 @@
             // Create compressed selector from the actual list of selectors
             var compressedSelector = usedSelectors.join(',');
             // Return the complete, compressed CSS rule
-            return compressedSelector + " " + ruleBody + " ";
+            return "    " + compressedSelector + " " + ruleBody + " \n";
         };
         
         // Parses and compresses a CSS media rule
@@ -93,7 +93,8 @@
             // The compressed body of the media rule
             var compressedBody = "";
             
-            for (var i = rule.cssRules.length; i--; ) {
+            for (var i = 0; i < rule.cssRules.length; i++) {
+                window.callPhantom(String(i));
                 compressedBody += parseCssRule(rule.cssRules[i]);
             }
             
@@ -102,15 +103,8 @@
                 return "";
             }
             
-            var conditionText = rule.conditionText || rule.media.mediaText;
-            if (!conditionText) {
-                conditionText = rule.cssText.substr(0, rule.indexOf('{'));
-            }
-            else {
-                conditionText = "@media (" + conditionText + ") "
-            }
-            
-            return conditionText + " { " + compressedBody + " } ";
+            var conditionText = rule.cssText.substr(0, rule.cssText.indexOf('{'));
+            return conditionText + " {\n" + compressedBody + " }\n\n";
         };
         
         // Parses and compresses any CSS rule by calling the appropriate function
@@ -122,7 +116,7 @@
                 return parseCssMediaRule(rule);
             }
             else {
-                return rule.cssText || "";
+                return (rule.cssText || "") + "\n";
             }
             // TODO: create a function that parses a CSSFontFaceRule and removes it if the font is not used on the page
         };
@@ -155,7 +149,8 @@
                 }
                 
                 // Go through each CSS rule and parse
-                for (var i = s.cssRules.length; i--; ) {
+                // TODO: this approach DOES NOT work with non-webkit vendor prefixes; new approach needed
+                for (var i = 0; i < s.cssRules.length; i++) {
                     var rule = s.cssRules[i];
                     result.originalLength += rule.cssText.length;
                     result.compressed += parseCssRule(rule);
@@ -172,6 +167,9 @@
                 
                 // Remove all references to current host, the URLs will be valid without it
                 result.compressed = replaceAll(window.location.protocol + "//" + window.location.host, "", result.compressed);
+                
+                // TODO: workaround this Firefox bug
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=650372
                 
                 // Tell the result to node and then exit
                 window.callPhantom(result);
